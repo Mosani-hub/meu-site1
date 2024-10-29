@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cardápio Online</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Cardápio da Lanchonete</h1>
+        
+        <div class="category">
+            <h2>Lanches</h2>
+            <label for="lanches">Escolha seu lanche:</label>
+            <select id="lanches">
+                <option value="10">X-Burguer - R$ 10,00</option>
+                <option value="15">X-Salada - R$ 15,00</option>
+            </select>
+            <label for="quantidadeLanches">Quantidade:</label>
+            <input type="number" id="quantidadeLanches" value="1" min="1">
+        </div>
+
+        <div class="category">
+            <h2>Bebidas</h2>
+            <label for="bebidas">Escolha sua bebida:</label>
+            <select id="bebidas">
+                <option value="5">Refrigerante - R$ 5,00</option>
+                <option value="7">Suco - R$ 7,00</option>
+            </select>
+            <label for="quantidadeBebidas">Quantidade:</label>
+            <input type="number" id="quantidadeBebidas" value="1" min="1">
+        </div>
+
+        <div class="category">
+            <h2>Empadas</h2>
+            <label for="empadas">Escolha sua empada:</label>
+            <select id="empadas">
+                <option value="4">Empadinha - R$ 4,00</option>
+                <option value="12">Empada na marmita média - R$ 12,00</option>
+                <option value="18">Empada na marmita grande - R$ 18,00</option>
+            </select>
+            <label for="quantidadeEmpadas">Quantidade:</label>
+            <input type="number" id="quantidadeEmpadas" value="1" min="1">
+        </div>
+
+        <h2 id="valorTotal">Valor Total: R$ 0,00</h2>
+        <button class="whatsapp-button" id="whatsappButton">Enviar Pedido via WhatsApp</button>
+    </div>
+
+    <script>
+        const valorTotal = document.getElementById('valorTotal');
+        const quantidadeLanches = document.getElementById('quantidadeLanches');
+        const quantidadeBebidas = document.getElementById('quantidadeBebidas');
+        const quantidadeEmpadas = document.getElementById('quantidadeEmpadas');
+        const lanches = document.getElementById('lanches');
+        const bebidas = document.getElementById('bebidas');
+        const empadas = document.getElementById('empadas');
+
+        function calcularTotal() {
+            const total = (lanches.value * quantidadeLanches.value) +
+                          (bebidas.value * quantidadeBebidas.value) +
+                          (empadas.value * quantidadeEmpadas.value);
+            valorTotal.innerText = `Valor Total: R$ ${total.toFixed(2)}`;
+        }
+
+        quantidadeLanches.addEventListener('input', calcularTotal);
+        quantidadeBebidas.addEventListener('input', calcularTotal);
+        quantidadeEmpadas.addEventListener('input', calcularTotal);
+        lanches.addEventListener('change', calcularTotal);
+        bebidas.addEventListener('change', calcularTotal);
+        empadas.addEventListener('change', calcularTotal);
+
+        document.getElementById('whatsappButton').onclick = function() {
+            const mensagem = `Meu pedido:\nLanche: ${lanches.options[lanches.selectedIndex].text}\nQuantidade: ${quantidadeLanches.value}\nBebida: ${bebidas.options[bebidas.selectedIndex].text}\nQuantidade: ${quantidadeBebidas.value}\nEmpada: ${empadas.options[empadas.selectedIndex].text}\nQuantidade: ${quantidadeEmpadas.value}\nValor Total: R$ ${valorTotal.innerText.split('R$ ')[1]}`;
+            const telefone = 'seu_numero_de_whatsapp'; // Insira seu número de WhatsApp
+            const url = `https://api.whatsapp.com/send?phone=${telefone}&text=${encodeURIComponent(mensagem)}`;
+            window.open(url, '_blank');
+        }
+    </script>
+</body>
+</html>
