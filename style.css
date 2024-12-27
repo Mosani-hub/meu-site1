@@ -12,7 +12,7 @@ body {
   background: #1a1a1a; /* Cinza escuro para o fundo do container */
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 10px rgba(255, 225, 225, 6.8);
 }
 
 h1 {
